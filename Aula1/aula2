@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Listar</title>
+</head>
+<body>
+<?php 
+// error_reporting(1);
+	if ( $_POST != NULL){
+		$con = new mysqli('localhost', 'andrecos_unifacs', 'unifacs123','andrecos_unifacs');
+
+		if( $con -> connect_errno){
+			echo "error ao conectar no bd" ; 
+		}
+
+		$nome = addslashes($_POST['nome']);
+		$matricula = addslashes($_POST['matricula']);
+		$email = addslashes($_POST['email']);
+		$curso = addslashes($_POST['curso']);
+		$sexo = addslashes($_POST['sexo']);
+
+		$insertQuery = "INSERT INTO aluno (nome,matricula,email,curso,sexo)
+						VALUES ('$nome','$matricula','$email','$curso','$sexo')";
+						echo "$insertQuery";
+
+		$retorno = $con->query( $insertQuery );
+		
+	}
+
+ ?>
+
+ <div class='col'>
+ 	 <div>
+        <form method="post">
+      <label for="nome">nome</label><br>
+      <input type="text" name="nome" placeholder="nome" required><br>
+
+      <label for="matricula">matricula</label><br>
+      <input type="text" name="matricula" placeholder="matricula" required><br>
+
+      <label for="email">email</label><br>
+      <input type="email" name="email" placeholder="email" required><br>
+
+      <label for="sexo">sexo</label><br>
+      <input type="radio" name="sexo" value="masculino" required>Masculino<br>
+      <input type="radio" name="sexo" value="feminino" required>Femenino<br>
+
+      <label for="curso">curso</label><br>
+      <select name="curso" required><br>
+        <option value="engComp">Engenharia da Computacao</option>
+        <option value="cieComp">Ciência da Computacao</option>
+        <option value="outros">outros</option>
+      </select><br>
+
+      <input type="submit" value="cadastrar">
+    </form>
+    </div>
+ </div>
+</body>
+<style type="text/css">
+	body{
+		display: flex;
+		flex-direction: row;
+	}
+	.col{
+		margin: auto;
+	}
+</style>
+</html>
