@@ -18,6 +18,7 @@
 <?php 
 
 if ( $_GET != NULL){
+
 	$idEditar = $_GET['id'];
 	$editarQuery = "SELECT * FROM aluno WHERE id= ". $idEditar . ";";
 	$retorno = $con->query( $editarQuery );
@@ -33,15 +34,19 @@ if ( $_GET != NULL){
 	
 		echo "
 		<form method='POST'>
+			<input type='hidden' value=$id name='id'>
+			<p> nome</p>
 			<input value=$nome name='nome'>
+			<p> matricula</p>
 			<input value=$matricula  name='matricula'>
+			<p> email</p>
 			<input value=$email name='email'>
+			<p> curso</p>
 			<input value=$curso name='curso'>
 		<div class='sexo'>";
 
 		if($sexo=='feminino'){
 			echo "
-			<input type='hidden' value=$id>
 			<input type='radio' name='sexo' value='masculino' required>Masculino<br>
 	      	<input type='radio' name='sexo' value='feminino' checked required>Femenino
 	      	<br>
@@ -58,6 +63,22 @@ if ( $_GET != NULL){
 		<input type='submit' value='Atualizar'>
 		</form>";
 	}
+}
+else{
+	echo "
+		<form method='POST'>
+			<input placeholder='nome' name='nome'>
+			<input placeholder='matricula'  name='matricula'>
+			<input placeholder='email' name='email'>
+			<input placeholder='curso' name='curso'>
+			<div class='sexo'>
+			<input type='hidden' value='id'>
+			<input type='radio' name='sexo' value='masculino' required>Masculino<br>
+	      	<input type='radio' name='sexo' value='feminino' checked required>Femenino
+	      	<br>
+	      	</div>
+		<input type='submit' value='Atualizar'>
+		</form>";
 }
 
 if( $_POST != NULL){
@@ -80,7 +101,7 @@ if( $_POST != NULL){
 
 ?>
 <style type="text/css">
-	h1{
+	h1,p{
 		text-align: center;
 	}
 	form{
