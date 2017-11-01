@@ -36,13 +36,13 @@ if ( $_GET != NULL){
 		<form method='POST'>
 			<input type='hidden' value=$id name='id'>
 			<p> nome</p>
-			<input value=$nome name='nome'>
+			<input value=$nome name='nome' type='text'>
 			<p> matricula</p>
-			<input value=$matricula  name='matricula'>
+			<input value=$matricula  name='matricula' type='number'>
 			<p> email</p>
-			<input value=$email name='email'>
+			<input value=$email name='email' type='email'>
 			<p> curso</p>
-			<input value=$curso name='curso'>
+			<input value=$curso name='curso' type='text'>
 		<div class='sexo'>";
 
 		if($sexo=='feminino'){
