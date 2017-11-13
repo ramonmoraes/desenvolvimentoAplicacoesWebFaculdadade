@@ -1,0 +1,85 @@
+<?php
+
+session_start();
+
+ ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>login</title>
+</head>
+
+<?php 
+	error_reporting(1);
+	if($_POST){
+		$con = new mysqli("localhost","root","","20171_web");
+
+		if($con->connect_error){
+			echo "connection error";
+			exit;
+		}
+
+	$login = $_POST['login'];
+	$senha = $_POST['senha'];
+	$senha = md5( $senha );
+
+	$sqlQuery = "SELECT *
+			FROM usuario
+			WHERE login = '$login'
+			AND senha = '$senha' ";
+
+
+	$sqlRetorno = $con->query($sqlQuery);
+
+	if(!$sqlRetorno){
+		echo "error on login";
+		exit;
+	}
+
+	if( $registro = $sqlRetorno->fetch_array() ) {  
+		$_SESSION["logado"] = 'ok';
+		$_SESSION["nome"] = $registro["nome"];
+		$_SESSION["id"] = $registro["id"];
+		$_SESSION["perfil"] = $registro["perfil"];
+	
+		header("Location: listar.php");
+	}
+
+
+	// para sair, session_destroy()
+	}
+
+	
+
+ ?>
+<body class='center'>
+<form class="center column"  method='POST'>
+	<h1>Login</h1>
+	<input type="text" name="login" placeholder="Login" required/>,
+
+	<input type="password" name="senha" placeholder="Senha" required/>
+	<input type="submit" value="Entrar !">
+</form>
+
+<style type="text/css">
+	body{
+		padding: 50px 0;
+	}
+	input{
+		border: 1px solid #444;
+		padding: 5px;
+		border-radius: 3px;
+		margin-bottom: 3px; 
+	}
+	.center{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.column {
+		flex-direction: column;
+	}
+</style>
+
+</body>
+</html>
